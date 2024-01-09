@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { REACT_APP_API_URL } from '../../config.js'; // Import from config.js
 import axios from "axios";
 
 const DetailNewsPopupCard = () => {
@@ -13,7 +14,7 @@ const DetailNewsPopupCard = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/stockAnalysis/${id}`)
+      .get(`${REACT_APP_API_URL}/stockAnalysis/${id}`)
       .then((res) => {
         setNews(res.data);
         setLoading(false);

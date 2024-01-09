@@ -3,6 +3,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useEffect, useState } from 'react';
 
 import DatePicker from 'react-datepicker';
+import { REACT_APP_API_URL } from '../../config.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -64,7 +65,7 @@ const StockDashBoard = ({ symbol }) => {
     const fetchData = async () => {
       const formattedDate = selectedDate.toISOString().split('T')[0]; // Format selected date as YYYY-MM-DD
       try {
-        const response = await axios.get(`http://localhost:5555/stockAnalysis/stockData/${symbol}/${formattedDate}`);
+        const response = await axios.get(`${REACT_APP_API_URL}/stockAnalysis/stockData/${symbol}/${formattedDate}`);
 
         const data = response.data;
         setTickerData({

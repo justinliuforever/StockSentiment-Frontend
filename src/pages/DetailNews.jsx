@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import BackButton from "../components/BackButton";
 import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { REACT_APP_API_URL } from "../../config.js";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -14,7 +15,7 @@ const DetailNews = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/stockAnalysis/${id}`)
+      .get(`${REACT_APP_API_URL}/stockAnalysis/${id}`)
       .then((res) => {
         setNews(res.data);
         setLoading(false);

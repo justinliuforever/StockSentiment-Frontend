@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { MdOutlineAddBox } from 'react-icons/md'; // Import search icon
+import { REACT_APP_API_URL } from '../../config.js'; // Import from config.js
 import SearchBar from '../components/SearchBar';
 import Spinner from "../components/Spinner";
 import axios from "axios";
@@ -14,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5555/stockAnalysis')
+      .get(`${REACT_APP_API_URL}/stockAnalysis`)
       .then((res) => {
         if (Array.isArray(res.data.data)) {
           setNews(res.data.data);

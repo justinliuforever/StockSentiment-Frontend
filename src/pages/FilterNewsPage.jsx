@@ -2,6 +2,7 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid
 import { useEffect, useState } from 'react';
 
 import BackButton from '../components/BackButton';
+import { REACT_APP_API_URL } from '../../config.js';
 import SearchBar from '../components/SearchBar';
 import Spinner from '../components/Spinner';
 import StockAnalysisSummaryBoard from '../components/StockAnalysisSummaryBoard';
@@ -18,7 +19,7 @@ const FilterNewsPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/stockAnalysis/ticker/${ticker}`)
+    axios.get(`${REACT_APP_API_URL}/stockAnalysis/ticker/${ticker}`)
       .then((res) => {
         if (res.data && Array.isArray(res.data.data)) {
           // Sort the news data in descending order of published date

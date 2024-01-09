@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { REACT_APP_API_URL_SUMMARY } from '../../config.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -11,7 +12,8 @@ const StockAnalysisSummaryBoard = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5556/TickerSummary/${ticker}`)
+      //.get(`http://localhost:5556/TickerSummary/${ticker}`)
+      .get(`${REACT_APP_API_URL_SUMMARY}/TickerSummary/${ticker}`)
       .then((res) => {
         setData(res.data); // Adjust according to the actual response structure
         setLoading(false);
