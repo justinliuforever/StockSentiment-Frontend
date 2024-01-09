@@ -51,7 +51,7 @@ const TickerTotalLists = () => {
       ) : (
         <div className="max-h-[calc(8*4.5rem)] overflow-y-auto border border-gray-300 rounded-lg"> 
           <ul role="list" className="divide-y divide-gray-100 py-6 px-4">
-            {news.map((item) => (
+            {news.slice(0, 25).map((item) => (
               <Link key={item._id} to={`/stockAnalysis/${item._id}`} className='block'>
                 <li className="flex justify-between items-center gap-x-6 py-5 hover:bg-indigo-100">
                   <img className="h-12 w-12 flex-none rounded-lg bg-gray-200" src={item.logoURL} alt="" />
