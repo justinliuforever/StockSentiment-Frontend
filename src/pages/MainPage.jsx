@@ -2,7 +2,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { Dialog } from '@headlessui/react'
 import Features from './Features'
-import TickerTotalLists from './TickerTotalLists'
+import TickerTotalLists from '../components/TickerTotalLists'
 import { useState } from 'react'
 
 const navigation = [

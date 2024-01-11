@@ -4,7 +4,7 @@ import DetailNews from './pages/DetailNews';
 import FilterNewsPage from './pages/FilterNewsPage';
 import Home from './pages/Home';
 import MainPage from './pages/MainPage';
-import TickerNotFoundPage from './components/TickerNotFoundPage';
+import TickerNotFoundPage from './pages/TickerNotFoundPage';
 
 //import React from 'react';
 

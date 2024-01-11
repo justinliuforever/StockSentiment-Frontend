@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { Link } from "react-router-dom";
 import { REACT_APP_API_URL } from '../../config.js';
-import SearchBar from '../components/SearchBar';
-import Spinner from "../components/Spinner";
+import SearchBar from './SearchBar.jsx';
+import Spinner from "./Spinner.jsx";
 import axios from "axios";
 import { formatDistanceToNow } from 'date-fns';
 
 const TickerTotalLists = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     setLoading(true);
     axios
@@ -32,6 +31,18 @@ const TickerTotalLists = () => {
         console.error(err);
         setLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const formatDate = (dateString) => {
@@ -59,10 +70,11 @@ const TickerTotalLists = () => {
                     <p className="text-sm font-semibold leading-6 text-gray-900">{item.title}</p>
                     <p className="truncate text-xs leading-5 text-gray-500">{item.ticker}</p>
                   </div>
-                  <p className="flex-none text-sm leading-6 text-gray-900">
-                    {formatDate(item.publishedUTC)}
-                  </p>
-                  <CursorArrowRaysIcon className='h-5 w-5 text-indigo-400 hover:text-indigo-600' />
+                  {windowWidth >= 600 && (
+                    <p className="flex-none text-sm leading-6 text-gray-900">
+                      {formatDate(item.publishedUTC)}
+                    </p>
+                  )}
                 </li>
               </Link>
             ))}
