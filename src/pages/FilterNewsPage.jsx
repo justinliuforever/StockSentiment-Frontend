@@ -170,7 +170,22 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
   const pageCount = Math.ceil(itemsCount / pageSize);
   if (pageCount === 1) return null;
 
-  const pages = [...Array(pageCount).keys()].map(i => i + 1);
+  const pageNumbers = [];
+  const pagesToShow = 5; // Number of pages to show before and after the current page
+  let startPage = Math.max(currentPage - pagesToShow, 1);
+  let endPage = Math.min(currentPage + pagesToShow, pageCount);
+
+  // Adjust start and end page if near the beginning or end
+  if (currentPage <= pagesToShow) {
+    endPage = Math.min(pagesToShow * 2 + 1, pageCount);
+  }
+  if (currentPage > pageCount - pagesToShow) {
+    startPage = Math.max(pageCount - pagesToShow * 2, 1);
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
@@ -178,13 +193,14 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
         <button
           onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
           className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          disabled={currentPage === 1}
         >
           <ArrowLongLeftIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
           Previous
         </button>
       </div>
       <div className="hidden md:-mt-px md:flex">
-        {pages.map(page => (
+        {pageNumbers.map(page => (
           <button
             key={page}
             onClick={() => onPageChange(page)}
@@ -199,6 +215,7 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
         <button
           onClick={() => currentPage < pageCount && onPageChange(currentPage + 1)}
           className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          disabled={currentPage === pageCount}
         >
           Next
           <ArrowLongRightIcon className="ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -207,5 +224,6 @@ function Pagination({ itemsCount, pageSize, currentPage, onPageChange }) {
     </nav>
   );
 }
+
 
 export default FilterNewsPage;
