@@ -38,13 +38,13 @@ const StockAnalysisSummaryPredictBoard = () => {
 
   const processSummary = (summary) => {
     if (!summary) return "";
-
-    // Split the summary into points and wrap each point in a paragraph tag
-    const points = summary.split('\n').map(point => `<p>${point.trim()}</p>`);
-
-    // Join the points back into a single string
-    return points.join('');
+  
+    // Replace each new line with a line break and two non-breaking spaces
+    const formattedSummary = summary.split('\n').map(line => `&nbsp;&nbsp;${line.trim()}`).join('<br/>');
+  
+    return formattedSummary;
   };
+  
 
   if (loading) {
     return <div>Loading...</div>;

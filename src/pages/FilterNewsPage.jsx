@@ -55,7 +55,10 @@ const FilterNewsPage = () => {
 
   const indexOfLastArticle = currentPage * pageSize;
   const indexOfFirstArticle = indexOfLastArticle - pageSize;
-  const currentArticles = newsData.slice(indexOfFirstArticle, indexOfLastArticle);
+  const currentArticles = newsData
+    .filter(item => item.chatGPTAnalysis.shortTermPrediction !== "empty")
+    .slice(indexOfFirstArticle, indexOfLastArticle);
+
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
