@@ -9,11 +9,17 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
-    setSearchTicker(e.target.value);
+    setSearchTicker(e.target.value.toUpperCase());
   };
 
   const handleSearchSubmit = () => {
     navigate(`/stockAnalysis/ticker/${searchTicker}`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit();
+    }
   };
 
   return (
@@ -27,6 +33,7 @@ const SearchBar = () => {
     placeholder="Enter ticker (e.g., U, AAPL)"
     value={searchTicker}
     onChange={handleSearchChange}
+    onKeyDown={handleKeyDown}
     className="p-2 border border-transparent bg-white rounded-l-md focus:ring-indigo-600 focus:border-indigo-600 block w-full shadow-sm sm:text-sm z-10"
   />
 
