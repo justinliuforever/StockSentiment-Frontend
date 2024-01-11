@@ -20,6 +20,7 @@ const StockAnalysisSummaryCompanyBoard = () => {
       })
       .catch((err) => {
         console.error(err);
+        setData(null); 
         setLoading(false);
       });
   }, [ticker]);
@@ -67,6 +68,7 @@ const StockAnalysisSummaryCompanyBoard = () => {
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{`Critical Insights on ${data.ticker}: Company Performance and Outlook`}</h1>
           <h3 className="mt-2 text-lg text-gray-500">Ticker: {data.ticker}</h3>
           <div className="my-8 text-base leading-7 text-gray-700"  dangerouslySetInnerHTML={{ __html: processSummary(data.summaryCompany) }}>
+            
             {/* <p>{data.summaryCompany}</p> */}
           </div>
         </div>

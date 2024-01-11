@@ -20,6 +20,7 @@ const StockAnalysisSummaryPredictBoard = () => {
       })
       .catch((err) => {
         console.error(err);
+        setData(null);
         setLoading(false);
       });
   }, [ticker]);
