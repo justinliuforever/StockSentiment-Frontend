@@ -1,6 +1,7 @@
 // SearchBar.jsx
 
 import { MdSearch } from 'react-icons/md';
+import { tickers } from '../constants/tickers';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -13,7 +14,11 @@ const SearchBar = () => {
   };
 
   const handleSearchSubmit = () => {
-    navigate(`/stockAnalysis/ticker/${searchTicker}`);
+    if (tickers.includes(searchTicker)) {
+      navigate(`/stockAnalysis/ticker/${searchTicker}`);
+    } else {
+      navigate('/ticker-not-found'); // Adjust the path to your TickerNotFoundPage
+    }
   };
 
   const handleKeyDown = (e) => {

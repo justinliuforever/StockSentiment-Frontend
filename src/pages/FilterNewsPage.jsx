@@ -9,6 +9,8 @@ import StockAnalysisSummaryCompanyBoard from '../components/StockAnalysisSummary
 import StockAnalysisSummaryPredictBoard from '../components/StockAnalysisSummaryPredictBoard';
 import StockDashBoard from '../components/StockDashBoard';
 import axios from 'axios';
+import { tickers } from '../constants/tickers'; // Adjust the path as necessary
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 const FilterNewsPage = () => {
@@ -17,8 +19,16 @@ const FilterNewsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5; // Number of articles per page
   const { ticker } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    
+    // Redirect if ticker is not found
+    if (!tickers.includes(ticker)) {
+      navigate('/ticker-not-found'); // Adjust the path to your TickerNotFoundPage
+      return;
+    }
+
     setLoading(true);
     axios.get(`${REACT_APP_API_URL}/stockAnalysis/ticker/${ticker}`)
       .then((res) => {
