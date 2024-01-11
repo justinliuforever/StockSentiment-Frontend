@@ -4,7 +4,7 @@ import { REACT_APP_API_URL_SUMMARY } from '../../config.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const StockAnalysisSummaryBoard = () => {
+const StockAnalysisSummaryCompanyBoard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const { ticker } = useParams(); // Assuming you're using react-router and the ticker is part of the URL
@@ -36,6 +36,17 @@ const StockAnalysisSummaryBoard = () => {
     return `${year}-${month}-${day} ${formattedHour}${period}`;
   };
 
+  const processSummary = (summary) => {
+    if (!summary) return "";
+
+    // Split the summary into points and wrap each point in a paragraph tag
+    const points = summary.split('\n').map(point => `<p>${point.trim()}</p>`);
+
+    // Join the points back into a single string
+    return points.join('');
+  };
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -53,10 +64,10 @@ const StockAnalysisSummaryBoard = () => {
         {/* Content */}
         <div className="bg-white py-6 px-4 border border-transparent rounded-lg shadow-sm relative z-10">
           <p className="text-base font-semibold leading-7 text-indigo-600">Update: {formatDate(data.createAt)}</p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Summary of recent stock news analysis</h1>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{`Critical Insights on ${data.ticker}: Company Performance and Outlook`}</h1>
           <h3 className="mt-2 text-lg text-gray-500">Ticker: {data.ticker}</h3>
-          <div className="my-8 text-base leading-7 text-gray-700">
-            <p>{data.summary}</p>
+          <div className="my-8 text-base leading-7 text-gray-700"  dangerouslySetInnerHTML={{ __html: processSummary(data.summaryCompany) }}>
+            {/* <p>{data.summaryCompany}</p> */}
           </div>
         </div>
       </div>
@@ -64,4 +75,4 @@ const StockAnalysisSummaryBoard = () => {
   );
 };
 
-export default StockAnalysisSummaryBoard;
+export default StockAnalysisSummaryCompanyBoard;

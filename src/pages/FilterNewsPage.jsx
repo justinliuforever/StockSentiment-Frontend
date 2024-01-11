@@ -5,7 +5,8 @@ import BackButton from '../components/BackButton';
 import { REACT_APP_API_URL } from '../../config.js';
 import SearchBar from '../components/SearchBar';
 import Spinner from '../components/Spinner';
-import StockAnalysisSummaryBoard from '../components/StockAnalysisSummaryBoard';
+import StockAnalysisSummaryCompanyBoard from '../components/StockAnalysisSummaryCompanyBoard';
+import StockAnalysisSummaryPredictBoard from '../components/StockAnalysisSummaryPredictBoard';
 import StockDashBoard from '../components/StockDashBoard';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -85,7 +86,11 @@ const FilterNewsPage = () => {
           </div>
 
           <div className="pt-6">
-            <StockAnalysisSummaryBoard/>
+            <StockAnalysisSummaryCompanyBoard/>
+          </div>
+          
+          <div className="pt-6">
+            <StockAnalysisSummaryPredictBoard/>
           </div>
           
 
