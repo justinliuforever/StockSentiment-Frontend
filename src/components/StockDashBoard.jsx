@@ -66,26 +66,27 @@ const StockDashBoard = ({ symbol }) => {
       const formattedDate = selectedDate.toISOString().split('T')[0]; // Format selected date as YYYY-MM-DD
       try {
         const response = await axios.get(`${REACT_APP_API_URL}/stockAnalysis/stockData/${symbol}/${formattedDate}`);
-
         const data = response.data;
+  
         setTickerData({
-          close: data.close.toFixed(2),
-          high: data.high.toFixed(2),
-          low: data.low.toFixed(2),
-          open: data.open.toFixed(2),
-          volume: data.volume.toLocaleString(),
-          afterHours: data.afterHours.toFixed(2),
-          preMarket: data.preMarket.toFixed(2),
-          from: data.from
+          close: data.close?.toFixed(2) || '---',
+          high: data.high?.toFixed(2) || '---',
+          low: data.low?.toFixed(2) || '---',
+          open: data.open?.toFixed(2) || '---',
+          volume: data.volume?.toLocaleString() || '---',
+          afterHours: data.afterHours?.toFixed(2) || '---',
+          preMarket: data.preMarket?.toFixed(2) || '---',
+          from: data.from || '---'
         });
       } catch (error) {
         console.error('Error fetching ticker data:', error);
         // Handle error appropriately in your UI
       }
     };
-
+  
     fetchData();
   }, [selectedDate, symbol]);
+  
 
   // Prepare the data for the UI
   const stats = [
