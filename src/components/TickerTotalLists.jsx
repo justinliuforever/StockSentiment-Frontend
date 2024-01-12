@@ -11,14 +11,23 @@ const TickerTotalLists = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
   useEffect(() => {
     setLoading(true);
     axios
       .get(`${REACT_APP_API_URL}/stockAnalysis`)
       .then((res) => {
         if (Array.isArray(res.data.data)) {
-          // Sort the news data based on publishedUTC
-          const sortedNews = res.data.data.sort((a, b) => {
+          // Create a unique set of news items based on title
+          const uniqueNews = res.data.data.reduce((acc, current) => {
+            if (!acc.find(item => item.title === current.title)) {
+              acc.push(current);
+            }
+            return acc;
+          }, []);
+
+          // Sort the unique news data based on publishedUTC
+          const sortedNews = uniqueNews.sort((a, b) => {
             return new Date(b.publishedUTC) - new Date(a.publishedUTC);
           });
           setNews(sortedNews);
@@ -32,6 +41,7 @@ const TickerTotalLists = () => {
         setLoading(false);
       });
   }, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +72,7 @@ const TickerTotalLists = () => {
       ) : (
         <div className="max-h-[calc(8*4.5rem)] overflow-y-auto border border-gray-300 rounded-lg"> 
           <ul role="list" className="divide-y divide-gray-100 py-6 px-4">
-            {news.slice(0, 10).map((item) => (
+            {news.slice(0, 20).map((item) => (
               <Link key={item._id} to={`/stockAnalysis/${item._id}`} className='block'>
                 <li className="flex justify-between items-center gap-x-6 py-5 hover:bg-indigo-100">
                   <img className="h-12 w-12 flex-none rounded-lg bg-gray-200" src={item.imageURL} alt="" />
