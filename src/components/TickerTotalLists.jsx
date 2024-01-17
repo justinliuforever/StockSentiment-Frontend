@@ -20,7 +20,7 @@ const TickerTotalLists = () => {
         if (Array.isArray(res.data.data)) {
           // Create a unique set of news items based on title
           const uniqueNews = res.data.data.reduce((acc, current) => {
-            if (!acc.find(item => item.title === current.title)) {
+            if (!acc.find(item => item.title === current.title) && current.chatGPTAnalysis?.shortTermPrediction !== "empty") {
               acc.push(current);
             }
             return acc;
